@@ -1,0 +1,25 @@
+¿Qué cambiaría en el código?
+
+El principal cambio se daría en el archivo de classes.py, donde cambiaríamos la clase Cuenta para que tenga además un atributo llamado valor_operaciones_hoy que guarde cuánto dinero se ha transferido durante el día.
+
+Además, se tendría que modificar el método de enviar_operacion para también tener en cuenta dentro del condicional al hecho de si se ha sobrepasado este límite.
+
+Finalmente, nuestra API debería tener un método que haga un reset al valor de operaciones del día de cada Cuenta cada que pase 24 horas.
+
+
+
+Nuevos casos de prueba a adicionar
+
+Se tendría que añadir un nuevo caso de prueba en donde se trate de transferir un número mayor a 200, del cual su resultado debería ser un error por la nueva restricción. 
+
+Además, se podría crear otro que vaya realizando transferencias de montos más pequeños, esperando el mismo resultado que el test anterior.
+
+Finalmente, podría haber otro que simule el paso de 24 horas en el reloj interno y compruebe que el monto diario de cada cuenta sea efectivamente cero.
+
+
+
+¿Cuánto riesgo hay de “romper” lo que ya funciona?
+
+Según lo escrito de código actualmente, no habría un riesgo mayor al implementar esta nueva funcionalidad, pues sería agregar una condición nueva a un bloque if ya existente y que ya maneja cuando una transacción no puede ser realizada, como es el caso de cuanto no se cuenta con saldo suficiente.
+
+Por otro lado, se podría utilizar herramientas con scheduler que llamen a la API para que maneje el reinicio de dichos contadores cada día, lo que resulta bastante seguro con los proveedores existentes, como puede ser el servicio de AWS con EventBridge.
