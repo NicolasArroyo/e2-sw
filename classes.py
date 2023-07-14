@@ -2,6 +2,7 @@ from datetime import date
 
 
 class Operacion:
+
     def __init__(self, numero_origen, numero_destino, valor):
         self.numero_origen = numero_origen
         self.numero_destino = numero_destino
@@ -10,6 +11,7 @@ class Operacion:
 
 
 class Cuenta:
+
     def __init__(self, numero, nombre, saldo, lista_contactos):
         self.numero = numero
         self.nombre = nombre
@@ -18,12 +20,14 @@ class Cuenta:
         self.lista_operaciones_recibidas = []
         self.lista_operaciones_enviadas = []
 
-    def recibir_mensaje(self, operacion):
+    def recibir_operacion(self, operacion):
         self.lista_operaciones_recibidas.append(operacion)
+        self.saldo += int(operacion.valor)
 
-    def enviar_mensaje(self, operacion):
-        if (operacion.valor <= self.saldo) and (operacion.numero_destino in self.lista_contactos):
+    def enviar_operacion(self, operacion):
+        if (int(operacion.valor) <= int(self.saldo)) and (operacion.numero_destino in self.lista_contactos):
             self.lista_operaciones_enviadas.append(operacion)
+            self.saldo -= int(operacion.valor)
             return True
 
         return False
